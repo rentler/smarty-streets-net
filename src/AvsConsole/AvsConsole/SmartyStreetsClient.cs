@@ -85,7 +85,7 @@ namespace AvsConsole
 					Address2 = string.Format("{0} {1}",
 						item.components.secondary_designator,
 						item.components.secondary_number),
-					City = item.components.city_name,
+					City = item.components.default_city_name ?? item.components.city_name,
 					State = item.components.state_abbreviation,
 					Zip = item.components.zipcode
 				};
