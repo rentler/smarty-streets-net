@@ -14,6 +14,54 @@ namespace AvsConsole
 		public string City { get; set; }
 		public string State { get; set; }
 		public string Zip { get; set; }
+
+		/// <summary>
+		/// Generally, the safest way to get a consistent, unique string
+		/// address is to put the address1, address2, city, and state together.
+		/// Zip codes can change at the USPS' whims, and the Delivery Point
+		/// Barcode (DPBC) can change as well. See 
+		/// <seealso cref="http://smartystreets.com/kb/faq/do-addresses-have-a-unique-identifier"/>
+		/// </summary>
+		public string SafeUniqueAddress
+		{
+			get
+			{
+				string address = string.Empty;
+
+				if (string.IsNullOrWhiteSpace(this.Address1) ||
+				   string.IsNullOrWhiteSpace(this.City) ||
+				   string.IsNullOrWhiteSpace(this.State))
+					throw new ArgumentNullException("Must have full address.");
+
+				//address line
+				address += this.Address1.Trim();
+				if (!string.IsNullOrWhiteSpace(this.Address2))
+					address += " " + this.Address2.Trim();
+
+				//city
+				if (address.Length > 0)
+					address += ", " + this.City.Trim();
+				else
+					address += this.City.Trim();
+
+				//state
+				if (address.Length > 0)
+					address += ", " + this.State.Trim();
+				else
+					address += this.State.Trim();
+
+				return address;
+			}
+		}
+
+		public string UniqueHash
+		{
+			get
+			{
+				return Hashing.Md5(SafeUniqueAddress);
+			}
+		}
+
 		public string FullAddress
 		{
 			get

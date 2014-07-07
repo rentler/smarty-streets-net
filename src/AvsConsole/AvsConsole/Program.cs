@@ -17,26 +17,40 @@ namespace AvsConsole
 		{
 			var client = new SmartyStreetsClient();
 
-			//var results =
-			//	(await client.GetStreetAddress(
-			//		street: "274 s 16th",
-			//		city: "st helens",
-			//		state: "or",
-			//		zipcode: "")).ToList();
-
-			var results =
+			var results = new List<SmartyStreetsAddress>();
+			results.AddRange(
 			(await client.GetStreetAddress(
-				street: "5185 S 900 E",
-				city: "slc",
-				state: "ut",
-				zipcode: "")).ToList();
+				street: "125 nw 20th Apt 3",
+				city: "portland",
+				state: "or",
+				zipcode: "")));
 
-			results.ForEach(r => Console.WriteLine(r.FullAddress));
+			results.AddRange(
+			(await client.GetStreetAddress(
+				street: "125 nw 20th Pl Apt 3",
+				city: "portland",
+				state: "or",
+				zipcode: "97209")));
 
-			var lookups =
-				(await client.GetLookup(
-					city: "slc",
-					state: "ut")).ToList();
+			results.AddRange(
+			(await client.GetStreetAddress(
+				street: "126 nw 20th Pl Apt 3",
+				city: "portland",
+				state: "or",
+				zipcode: "97209")));
+
+			results.AddRange(
+			(await client.GetStreetAddress(
+				street: "125 nw 20th Pl Apt 17",
+				city: "portland",
+				state: "or",
+				zipcode: "")));
+
+			foreach (var item in results)
+			{
+				var add = client.ToAddress(item);
+				Console.WriteLine(add.SafeUniqueAddress + " : " + add.UniqueHash);
+			}
 
 			Console.ReadKey(true);
 		}
