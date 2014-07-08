@@ -1,4 +1,5 @@
 # General
+shallow_clone: true
 version: 0.1.{build}
 
 # Environment
@@ -12,8 +13,12 @@ assembly_info:
 # Build
 platform: AnyCPU
 configuration: Release
+before_build:
+  - cmd: cd src
+  - cmd: nuget restore
+  - cmd: cd ..
 build:
-  project: src/Rentler.SmartyStreets/Rentler.SmartyStreets.sln
+  project: src/Rentler.SmartyStreets.sln
 #  publish_nuget: true
 
 # Artifacts
