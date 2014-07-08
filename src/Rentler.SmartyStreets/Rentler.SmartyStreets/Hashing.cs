@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// Utility class for computing SHA1 and MD5 hashes.
+	/// </summary>
 	public static class Hashing
 	{
 		/// <summary>

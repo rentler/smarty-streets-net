@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// A simple reusable Http client that handles
+	/// managing a System.Net.HttpClient for basic
+	/// GET/POST operations.
+	/// </summary>
 	public class ApiClient
 	{
 		HttpClient client = new HttpClient();
@@ -22,6 +27,12 @@ namespace Rentler.SmartyStreets
 			get { return instance.Value; }
 		}
 
+		/// <summary>
+		/// Builds a Uri for a particular SmartyStreets endpoint.
+		/// </summary>
+		/// <param name="endpoint">Relative url of the endpoint.</param>
+		/// <param name="args">Any arguments to be included in the url's querystring.</param>
+		/// <returns>A proper Uri to be used in a GET or POST request.</returns>
 		public Uri CreateAddress(string endpoint, Dictionary<string, string> args)
 		{
 			var url = "https://api.smartystreets.com/";

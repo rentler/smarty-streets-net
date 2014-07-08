@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// Utility class to strongly type and simplify retrieval of 
+	/// configuration settings from an App.config or Web.config.
+	/// Used by the SmartyStreetsClient if settings are not passed
+	/// in its constructor.
+	/// </summary>
 	public static class App
 	{
 		private static string smartyStreetsAuthToken;

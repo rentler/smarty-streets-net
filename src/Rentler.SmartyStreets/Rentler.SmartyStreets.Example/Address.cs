@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets.Example
 {
+	/// <summary>
+	/// A simple class to demonstrate translating SmartyStreets
+	/// lookups to a workable common object. Includes a factory method
+	/// and properties to handle correctly parsing a unique address
+	/// from the result.
+	/// </summary>
 	public class Address
 	{
 		public string Address1 { get; set; }
@@ -62,6 +68,11 @@ namespace Rentler.SmartyStreets.Example
 			}
 		}
 
+		/// <summary>
+		/// Builds a string form of the Address 
+		/// that can be presented in a user interface. Takes 
+		/// various states of a complete address into account.
+		/// </summary>
 		public string FullAddress
 		{
 			get
@@ -100,6 +111,12 @@ namespace Rentler.SmartyStreets.Example
 			}
 		}
 
+		/// <summary>
+		/// A simple factory method to translate from a SmartyStreetsAddress 
+		/// to a common Address object.
+		/// </summary>
+		/// <param name="add">The SmartyStreetsAddress object from which to translate.</param>
+		/// <returns>A common Address object.</returns>
 		public static Address FromSmartyStreetsAddress(SmartyStreetsAddress add)
 		{
 			return new Address

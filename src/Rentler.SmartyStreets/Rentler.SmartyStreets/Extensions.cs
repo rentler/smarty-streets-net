@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// Utility class for commonly used extension methods.
+	/// </summary>
 	public static class Extensions
 	{
+		/// <summary>
+		/// Used to handle serialization of something like a
+		/// Dictionary<string,string> to a proper querystring.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="keyValueSeparator"></param>
+		/// <param name="sequenceSeparator"></param>
+		/// <returns></returns>
 		public static string ToString(
 			this Dictionary<string, string> source,
 			string keyValueSeparator, string sequenceSeparator)
