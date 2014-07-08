@@ -2,6 +2,8 @@
 
 A .Net client library for the Smarty Streets LiveAddress Api.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/28verebh8s3rf22d)](https://ci.appveyor.com/project/rentlercorp/smarty-streets-net)
+
 ##Getting Started
 You'll need security keys in order to do anything. Go to http://smartystreets.com/ to create an account. You can find your keys at https://smartystreets.com/account/keys.
 
