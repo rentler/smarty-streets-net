@@ -25,7 +25,8 @@ build:
 artifacts:
   - path: out\*.nupkg
 
-#deploy:
+# Deployment
+deploy:
   provider: NuGet
   api_key:
     secure: +JGYJCVozaWFY15kD0vDk7irBGHEuzOzf22wXVLIoJq8XblYC6pR2iaxbd+WtcdM
