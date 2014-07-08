@@ -1,0 +1,26 @@
+# General
+version: 0.1.{build}
+
+# Environment
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
+# Build
+platform: AnyCPU
+configuration: Release
+build:
+  project: src/Rentler.SmartyStreets/Rentler.SmartyStreets.sln
+#  publish_nuget: true
+
+# Artifacts
+#artifacts:
+#  - path: out\*.nupkg
+
+#deploy:
+#  provider: NuGet
+#  api_key:
+#    secure: +JGYJCVozaWFY15kD0vDk7irBGHEuzOzf22wXVLIoJq8XblYC6pR2iaxbd+WtcdM
