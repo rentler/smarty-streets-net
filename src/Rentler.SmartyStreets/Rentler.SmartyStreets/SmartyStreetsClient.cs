@@ -19,14 +19,13 @@ namespace Rentler.SmartyStreets
 
 		/// <summary>
 		/// Initializes a new instance of the SmartyStreetsClient.
-		/// Generally, it is recommended to reuse this client as much as possible.
+		/// It can (and should) be reused.
 		/// 
 		/// See http://smartystreets.com/kb/liveaddress-api/rest-endpoint for documentation
-		/// on the keys you'll need. Do not expose either of these keys or use them 
-		/// directly on a web page. Keep them secret, keep them safe.
-		/// 
-		/// If these are not set in the constructor, the client will attempt to retrieve
-		/// them from an app.config or web.config.
+		/// on the keys you'll need. If these are not set in the constructor, 
+		/// the client will attempt to retrieve them from an app.config or web.config. 
+		/// Do not expose either of these keys or use them directly on a web page. 
+		/// Keep them secret, keep them safe.
 		/// </summary>
 		/// <param name="authId">Unique "auth-id" value provided by SmartyStreets.</param>
 		/// <param name="authToken">Unique "auth-token" value.</param>
@@ -37,6 +36,11 @@ namespace Rentler.SmartyStreets
 			client = ApiClient.Instance;
 			this.authId = authId ?? App.SmartyStreetsAuthId;
 			this.authToken = authToken ?? App.SmartyStreetsAuthToken;
+
+			if (string.IsNullOrWhiteSpace(authId) || string.IsNullOrWhiteSpace(authToken))
+				throw new System.Configuration.ConfigurationErrorsException(
+					"Could not find one or either of the SmartyStreets auth keys.\n " + 
+					"Set them in the constructor, or an app.config or web.config.");
 		}
 
 		/// <summary>
@@ -84,7 +88,7 @@ namespace Rentler.SmartyStreets
 		/// <param name="zip">The ZIP code.</param>
 		/// <returns>An object with lists of matching Cities and States, along
 		/// with any relevant zip codes that match the area. If SmartyStreets
-		/// cannot find anything, a single default instance will be returned.</returns>
+		/// cannot find anything, an empty array will be returned.</returns>
 		public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookup(
 			string city = null, string state = null,
 			string zip = null)
