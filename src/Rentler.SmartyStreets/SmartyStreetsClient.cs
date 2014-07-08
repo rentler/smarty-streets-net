@@ -15,7 +15,7 @@ namespace Rentler.SmartyStreets
 	{
 		ApiClient client;
 		string authId;
-		string authToken;
+		string authToken; 
 
 		/// <summary>
 		/// Initializes a new instance of the SmartyStreetsClient.
