@@ -47,9 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Rentler.SmartyStreets\Rentler.SmartyStreets.csproj">
       <Project>{5737e7f8-bb64-4127-b0dc-c261ef2eb02d}</Project>
       <Name>Rentler.SmartyStreets</Name>

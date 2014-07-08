@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// Represents the results of a street address lookup. Includes
+	/// the index of the address (a single address lookup can resolve to 
+	/// several possible results), basic address information, and
+	/// detailed additional data in the Components, Metadata, and Analysis
+	/// objects. See http://smartystreets.com/kb/liveaddress-api/field-definitions
+	/// for documentation on each field.
+	/// </summary>
 	public class SmartyStreetsAddress
 	{
 		public int input_index { get; set; }
@@ -17,6 +25,12 @@ namespace Rentler.SmartyStreets
 		public Metadata metadata { get; set; }
 		public Analysis analysis { get; set; }
 	}
+
+	/// <summary>
+	/// Represents the full breakdown of the resolved address.
+	/// See http://smartystreets.com/kb/liveaddress-api/field-definitions#components
+	/// for documentation on each field.
+	/// </summary>
 	public class Components
 	{
 		public string primary_number { get; set; }
@@ -36,6 +50,12 @@ namespace Rentler.SmartyStreets
 		public string delivery_point_check_digit { get; set; }
 	}
 
+	/// <summary>
+	/// Represents extra data on the resolved address, including
+	/// geolocation, precision, time zones, etc. See
+	/// http://smartystreets.com/kb/liveaddress-api/field-definitions#metadata
+	/// for documentation on each field.
+	/// </summary>
 	public class Metadata
 	{
 		public string record_type { get; set; }
@@ -56,6 +76,14 @@ namespace Rentler.SmartyStreets
 		public bool dst { get; set; }
 	}
 
+	/// <summary>
+	/// Represents detailed information about the state of
+	/// the resolved address. Whether it is deliverable,
+	/// vacant, footnotes to indicate what SmartyStreets changed
+	/// to match the exact address, and so on. See
+	/// http://smartystreets.com/kb/liveaddress-api/field-definitions#analysis
+	/// for documentation on each field.
+	/// </summary>
 	public class Analysis
 	{
 		public string dpv_match_code { get; set; }

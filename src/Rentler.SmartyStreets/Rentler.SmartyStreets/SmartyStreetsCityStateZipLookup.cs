@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
+	/// <summary>
+	/// Represents the results of a City/State/Zip lookup.
+	/// See http://smartystreets.com/kb/liveaddress-api/zipcode-api
+	/// for documentation.
+	/// </summary>
 	public class SmartyStreetsCityStateZipLookup
 	{
 		public List<CityState> city_states { get; set; }
