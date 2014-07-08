@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvsConsole
+namespace Rentler.SmartyStreets
 {
 	public class ApiClient
 	{

@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E64E37C4-8A90-4C38-9439-71F3FBB0B658}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{5737E7F8-BB64-4127-B0DC-C261EF2EB02D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AvsConsole</RootNamespace>
-    <AssemblyName>AvsConsole</AssemblyName>
+    <RootNamespace>Rentler.SmartyStreets</RootNamespace>
+    <AssemblyName>Rentler.SmartyStreets</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\packages\ServiceStack.Text.4.0.22\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.4.0.23\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -47,18 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
     <Compile Include="ApiClient.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Hashing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartyStreetsAddress.cs" />
     <Compile Include="SmartyStreetsCityStateZipLookup.cs" />
     <Compile Include="SmartyStreetsClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
