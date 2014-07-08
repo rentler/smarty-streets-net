@@ -41,7 +41,7 @@ namespace Rentler.SmartyStreets.Example
 
 			results.AddRange(
 			(await client.GetStreetAddress(
-				street: "126 nw 20th Pl Apt 3",
+				street: "126 nw 21th Pl Apt 3",
 				city: "portland",
 				state: "or",
 				zipcode: "97209")));
