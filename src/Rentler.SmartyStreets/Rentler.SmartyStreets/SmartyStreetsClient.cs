@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvsConsole
+namespace Rentler.SmartyStreets
 {
 	public class SmartyStreetsClient
 	{
@@ -71,29 +71,29 @@ namespace AvsConsole
 			return dict;
 		}
 
-		public Address ToAddress(SmartyStreetsAddress add)
-		{
-			return new Address
-			{
-				Address1 = string.Format("{0} {1} {2} {3} {4}",
-				   add.components.primary_number,
-				   add.components.street_predirection,
-				   add.components.street_name,
-				   add.components.street_suffix,
-				   add.components.street_postdirection).Replace("  ", " ").Trim(),
-				Address2 = string.Format("{0} {1}",
-					add.components.secondary_designator,
-					add.components.secondary_number).Replace("  ", " ").Trim(),
-				City = add.components.default_city_name ?? add.components.city_name,
-				State = add.components.state_abbreviation,
-				Zip = add.components.zipcode
-			};
-		}
+		//public Address ToAddress(SmartyStreetsAddress add)
+		//{
+		//	return new Address
+		//	{
+		//		Address1 = string.Format("{0} {1} {2} {3} {4}",
+		//		   add.components.primary_number,
+		//		   add.components.street_predirection,
+		//		   add.components.street_name,
+		//		   add.components.street_suffix,
+		//		   add.components.street_postdirection).Replace("  ", " ").Trim(),
+		//		Address2 = string.Format("{0} {1}",
+		//			add.components.secondary_designator,
+		//			add.components.secondary_number).Replace("  ", " ").Trim(),
+		//		City = add.components.default_city_name ?? add.components.city_name,
+		//		State = add.components.state_abbreviation,
+		//		Zip = add.components.zipcode
+		//	};
+		//}
 
-		public IEnumerable<Address> ToAddress(SmartyStreetsAddress[] adds)
-		{
-			foreach (var add in adds)
-				yield return ToAddress(add);
-		}
+		//public IEnumerable<Address> ToAddress(SmartyStreetsAddress[] adds)
+		//{
+		//	foreach (var add in adds)
+		//		yield return ToAddress(add);
+		//}
 	}
 }

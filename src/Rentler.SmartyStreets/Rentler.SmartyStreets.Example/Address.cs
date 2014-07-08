@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace AvsConsole
+namespace Rentler.SmartyStreets.Example
 {
 	public class Address
 	{
@@ -100,34 +100,23 @@ namespace AvsConsole
 			}
 		}
 
-		public void Clean()
+		public static Address FromSmartyStreetsAddress(SmartyStreetsAddress add)
 		{
-			//trim spaces
-			this.Address1 = SafeTrim(this.Address1);
-			this.Address2 = SafeTrim(this.Address2);
-			this.City = SafeTrim(this.City);
-			this.State = SafeTrim(this.State);
-			this.Zip = SafeTrim(this.Zip);
-
-			//common stuff
-			this.Address1 = SafeReplace(this.Address1, "\\.");
-			this.City = SafeReplace(this.City, "\\.");
-		}
-
-		string SafeReplace(string item, string match, string replace = "")
-		{
-			if (!string.IsNullOrWhiteSpace(item))
-				item = Regex.Replace(item, match, replace, RegexOptions.IgnoreCase);
-
-			return item;
-		}
-
-		string SafeTrim(string item)
-		{
-			if (!string.IsNullOrWhiteSpace(item))
-				item = item.Trim();
-
-			return item;
+			return new Address
+			{
+				Address1 = string.Format("{0} {1} {2} {3} {4}",
+				   add.components.primary_number,
+				   add.components.street_predirection,
+				   add.components.street_name,
+				   add.components.street_suffix,
+				   add.components.street_postdirection).Replace("  ", " ").Trim(),
+				Address2 = string.Format("{0} {1}",
+					add.components.secondary_designator,
+					add.components.secondary_number).Replace("  ", " ").Trim(),
+				City = add.components.default_city_name ?? add.components.city_name,
+				State = add.components.state_abbreviation,
+				Zip = add.components.zipcode
+			};
 		}
 	}
 }

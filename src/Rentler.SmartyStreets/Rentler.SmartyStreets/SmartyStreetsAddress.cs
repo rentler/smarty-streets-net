@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvsConsole
+namespace Rentler.SmartyStreets
 {
 	public class SmartyStreetsAddress
 	{
