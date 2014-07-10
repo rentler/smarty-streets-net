@@ -22,7 +22,7 @@ namespace Rentler.SmartyStreets
 			get
 			{
 				if (smartyStreetsAuthToken == null)
-					smartyStreetsAuthToken = ConfigurationManager.AppSettings["SmaryStreetsAuthToken"];
+					smartyStreetsAuthToken = ConfigurationManager.AppSettings["SmartyStreetsAuthToken"];
 				return smartyStreetsAuthToken;
 			}
 		}
@@ -34,7 +34,7 @@ namespace Rentler.SmartyStreets
 			get
 			{
 				if (smartyStreetsAuthId == null)
-					smartyStreetsAuthId = ConfigurationManager.AppSettings["SmaryStreetsAuthId"];
+					smartyStreetsAuthId = ConfigurationManager.AppSettings["SmartyStreetsAuthId"];
 				return smartyStreetsAuthId;
 			}
 		}
