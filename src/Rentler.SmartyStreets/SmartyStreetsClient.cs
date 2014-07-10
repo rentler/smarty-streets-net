@@ -37,7 +37,7 @@ namespace Rentler.SmartyStreets
 			this.authId = authId ?? App.SmartyStreetsAuthId;
 			this.authToken = authToken ?? App.SmartyStreetsAuthToken;
 
-			if (string.IsNullOrWhiteSpace(authId) || string.IsNullOrWhiteSpace(authToken))
+			if (string.IsNullOrWhiteSpace(this.authId) || string.IsNullOrWhiteSpace(this.authToken))
 				throw new System.Configuration.ConfigurationErrorsException(
 					"Could not find one or either of the SmartyStreets auth keys.\n " + 
 					"Set them in the constructor, or an app.config or web.config.");

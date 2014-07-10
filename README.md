@@ -20,8 +20,8 @@ Or an appropriate web.config or app.config file, under AppSettings:
 ```
 <configuration>
   <appSettings>
-    <add key="SmaryStreetsAuthId" value="{auth id here}"/>
-    <add key="SmaryStreetsAuthToken" value="{auth token here}"/>
+    <add key="SmartyStreetsAuthId" value="{auth id here}"/>
+    <add key="SmartyStreetsAuthToken" value="{auth token here}"/>
   </appSettings>
 </configuration>
 ```
