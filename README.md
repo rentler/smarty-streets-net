@@ -4,6 +4,16 @@
 
 A .Net client library for the Smarty Streets LiveAddress Api, a totally awesome address verification service.
 
+##Installing
+
+You can use NuGet to install the library and all of its dependancies:
+
+```
+Install-Package Rentler.SmartyStreets
+```
+
+Or you can fork the project if you are interested in the source.
+
 ##Getting Started
 You'll need security keys in order to do anything. Go to http://smartystreets.com/ to create an account. You can find your keys at https://smartystreets.com/account/keys.
 
