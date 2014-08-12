@@ -69,11 +69,14 @@ namespace Rentler.SmartyStreets
 
 			var url = client.CreateAddress("street-address", args);
 			var response = await client.Post(url);
-			var obj = JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response)
-						??
-					  new SmartyStreetsAddress[] { };
 
-			return obj;
+			//special case
+			if (response.Length == 3)
+				return new SmartyStreetsAddress[0];
+
+			return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response) 
+				??
+				new SmartyStreetsAddress[0];
 		}
 
 		/// <summary>

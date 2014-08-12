@@ -72,7 +72,7 @@ namespace Rentler.SmartyStreets
 		public double longitude { get; set; }
 		public string precision { get; set; }
 		public string time_zone { get; set; }
-		public int utc_offset { get; set; }
+		public string utc_offset { get; set; }
 		public bool dst { get; set; }
 	}
 
