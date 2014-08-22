@@ -36,9 +36,12 @@ namespace Rentler.SmartyStreets
 		public Uri CreateAddress(string endpoint, Dictionary<string, string> args)
 		{
 			var url = "https://api.smartystreets.com/";
-			url += endpoint + "?" + args.ToString("=", "&");
-			url = Uri.EscapeUriString(url);
 
+			var keys = args.Keys.ToArray();
+			for (int i = 0; i < keys.Length; i++)
+				args[keys[i]] = Uri.EscapeDataString(args[keys[i]]);
+
+			url += endpoint + "?" + args.ToString("=", "&");
 			return new Uri(url);
 		}
 
