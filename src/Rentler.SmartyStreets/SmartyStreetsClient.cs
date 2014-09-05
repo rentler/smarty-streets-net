@@ -57,8 +57,8 @@ namespace Rentler.SmartyStreets
 		/// will be returned, but results can include up to five possibles. If none are found,
 		/// the array will be empty.</returns>
 		public async Task<IEnumerable<SmartyStreetsAddress>> GetStreetAddress(
-			string street = null, string city = null,
-			string state = null, string zipcode = null)
+			string street = "", string city = "",
+			string state = "", string zipcode = "")
 		{
 			var args = SetAuth();
 			args["street"] = street;
@@ -93,8 +93,8 @@ namespace Rentler.SmartyStreets
 		/// with any relevant zip codes that match the area. If SmartyStreets
 		/// cannot find anything, an empty array will be returned.</returns>
 		public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookup(
-			string city = null, string state = null,
-			string zip = null)
+			string city = "", string state = "",
+			string zip = "")
 		{
 			var args = SetAuth();
 			args["city"] = city;
