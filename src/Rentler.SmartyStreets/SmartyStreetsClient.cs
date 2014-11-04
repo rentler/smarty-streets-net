@@ -67,14 +67,15 @@ namespace Rentler.SmartyStreets
 			args["zipcode"] = zipcode;
 			args["candidates"] = "5";
 
+			//var url = client.CreateAddress("street-address", args);
 			var url = client.CreateAddress("street-address", args);
 			var response = await client.Post(url);
 
-			//special case
+			//special cases
 			if (response.Length == 3)
 				return new SmartyStreetsAddress[0];
 
-			return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response) 
+			return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response)
 				??
 				new SmartyStreetsAddress[0];
 		}
