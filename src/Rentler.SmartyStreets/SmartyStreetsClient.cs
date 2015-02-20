@@ -50,6 +50,8 @@ namespace Rentler.SmartyStreets
 		/// documentation on this endpoint.
 		/// </summary>
 		/// <param name="street">The street address, or a single-line (freeform) address.</param>
+        /// <param name="street2">Any extra address information.</param>
+        /// <param name="secondary">Apartment, suite, or office number.</param>
 		/// <param name="city">The city name.</param>
 		/// <param name="state">The state name.</param>
 		/// <param name="zipcode">The ZIP code.</param>
@@ -57,11 +59,13 @@ namespace Rentler.SmartyStreets
 		/// will be returned, but results can include up to five possibles. If none are found,
 		/// the array will be empty.</returns>
 		public async Task<IEnumerable<SmartyStreetsAddress>> GetStreetAddress(
-			string street = null, string city = null,
+			string street = null, string street2 = null,string secondary = null, string city = null,
 			string state = null, string zipcode = null)
 		{
 			var args = SetAuth();
 			args["street"] = street;
+            args["street2"] = street2;
+            args["secondary"] = secondary;
 			args["city"] = city;
 			args["state"] = state;
 			args["zipcode"] = zipcode;
