@@ -1,6 +1,7 @@
-﻿using ServiceStack.Text;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,10 @@ namespace Rentler.SmartyStreets
 	/// </summary>
 	public class SmartyStreetsClient : ISmartyStreetsClient
 	{
-		private ApiClient _client;
-		private string _authId;
-		private string _authToken;
+		ApiClient _client;
+		string _authId;
+		string _authToken;
+		JsonSerializer _serializer;
 
 		/// <summary>
 		/// Initializes a new instance of the SmartyStreetsClient.
@@ -32,9 +34,10 @@ namespace Rentler.SmartyStreets
 		public SmartyStreetsClient(string authId = null, string authToken = null)
 		{
 			_client = ApiClient.Instance;
-			this._authId = authId ?? App.SmartyStreetsAuthId;
-			this._authToken = authToken ?? App.SmartyStreetsAuthToken;
-
+			_authId = authId ?? App.SmartyStreetsAuthId;
+			_authToken = authToken ?? App.SmartyStreetsAuthToken;
+			_serializer = new JsonSerializer();
+				
 			if (string.IsNullOrWhiteSpace(this._authId) || string.IsNullOrWhiteSpace(this._authToken))
 				throw new System.Configuration.ConfigurationErrorsException(
 					"Could not find one or either of the SmartyStreets auth keys.\n " +
@@ -126,9 +129,9 @@ namespace Rentler.SmartyStreets
 			if (response.Length == 3)
 				return new SmartyStreetsAddress[0];
 
-			return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response)
-			  ??
-			  new SmartyStreetsAddress[0];
+			using (var sr = new StreamReader(response))
+			using (var jr = new JsonTextReader(sr))
+				return _serializer.Deserialize<SmartyStreetsAddress[]>(jr) ?? new SmartyStreetsAddress[0];
 		}
 
 		/// <summary>
@@ -144,7 +147,9 @@ namespace Rentler.SmartyStreets
 		/// <returns>An object with lists of matching Cities and States, along
 		/// with any relevant zip codes that match the area. If SmartyStreets
 		/// cannot find anything, an empty array will be returned.</returns>
-		public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookupAsync(string city = null, string state = null, string zip = null)
+		public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookupAsync(
+			string city = null, string state = null, 
+			string zip = null)
 		{
 			var args = SetAuth();
 			args["city"] = city;
@@ -153,11 +158,11 @@ namespace Rentler.SmartyStreets
 
 			var url = _client.CreateAddress("zipcode", args);
 			var response = await _client.PostAsync(url);
-			var obj = JsonSerializer.DeserializeFromStream<SmartyStreetsCityStateZipLookup[]>(response)
-				  ??
-				  new SmartyStreetsCityStateZipLookup[] { };
 
-			return obj;
+			using (var sr = new StreamReader(response))
+			using (var jr = new JsonTextReader(sr))
+				return _serializer.Deserialize<SmartyStreetsCityStateZipLookup[]>(jr) ?? 
+					new SmartyStreetsCityStateZipLookup[0];
 		}
 
 		/// <summary>
