@@ -26,28 +26,28 @@ namespace Rentler.SmartyStreets.Example
 			var results = new List<SmartyStreetsAddress>();
 
 			results.AddRange(
-			(await client.GetStreetAddress(
+			(await client.GetStreetAddressAsync(
 				street: "125 nw 20th Apt 3",
 				city: "portland",
 				state: "or",
 				zipcode: "")));
 
 			results.AddRange(
-			(await client.GetStreetAddress(
+			(await client.GetStreetAddressAsync(
 				street: "125 nw 20th Pl Apt 3",
 				city: "portland",
 				state: "or",
 				zipcode: "97209")));
 
 			results.AddRange(
-			(await client.GetStreetAddress(
+			(await client.GetStreetAddressAsync(
 				street: "126 nw 20th Pl Apt 3",
 				city: "portland",
 				state: "or",
 				zipcode: "97209")));
 
 			results.AddRange(
-			(await client.GetStreetAddress(
+			(await client.GetStreetAddressAsync(
 				street: "125 nw 20th Pl Apt 17",
 				city: "portland",
 				state: "or",
@@ -65,7 +65,7 @@ namespace Rentler.SmartyStreets.Example
 			var client = new SmartyStreetsClient();
 			var results = new List<SmartyStreetsCityStateZipLookup>();
 
-			results.AddRange((await client.GetLookup(
+			results.AddRange((await client.GetLookupAsync(
 				city: "portland",
 				state: "or")));
 

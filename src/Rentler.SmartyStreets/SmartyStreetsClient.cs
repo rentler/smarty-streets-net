@@ -42,7 +42,7 @@ namespace Rentler.SmartyStreets
 		}
 
 
-    #region depricated
+    #region Deprecated
     /// <summary>
 		/// Attempts to resolve a street address to a verified one.
 		/// Makes requests to https://api.smartystreets.com/street-address.
