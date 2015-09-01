@@ -50,6 +50,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Hashing.cs" />
+    <Compile Include="ISmartyStreetsClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartyStreetsAddress.cs" />
     <Compile Include="SmartyStreetsCityStateZipLookup.cs" />

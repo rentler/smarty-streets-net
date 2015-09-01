@@ -11,11 +11,11 @@ namespace Rentler.SmartyStreets
 	/// Handles requests to SmartyStreets for street address
 	/// and city/state/zip lookups.
 	/// </summary>
-	public class SmartyStreetsClient
+  public class SmartyStreetsClient : ISmartyStreetsClient
 	{
-		ApiClient client;
-		string authId;
-		string authToken; 
+		private ApiClient _client;
+    private string _authId;
+    private string _authToken; 
 
 		/// <summary>
 		/// Initializes a new instance of the SmartyStreetsClient.
@@ -29,21 +29,21 @@ namespace Rentler.SmartyStreets
 		/// </summary>
 		/// <param name="authId">Unique "auth-id" value provided by SmartyStreets.</param>
 		/// <param name="authToken">Unique "auth-token" value.</param>
-		public SmartyStreetsClient(
-			string authId = null,
-			string authToken = null)
+		public SmartyStreetsClient(string authId = null, string authToken = null)
 		{
-			client = ApiClient.Instance;
-			this.authId = authId ?? App.SmartyStreetsAuthId;
-			this.authToken = authToken ?? App.SmartyStreetsAuthToken;
+      _client = ApiClient.Instance;
+      this._authId = authId ?? App.SmartyStreetsAuthId;
+      this._authToken = authToken ?? App.SmartyStreetsAuthToken;
 
-			if (string.IsNullOrWhiteSpace(this.authId) || string.IsNullOrWhiteSpace(this.authToken))
+      if (string.IsNullOrWhiteSpace(this._authId) || string.IsNullOrWhiteSpace(this._authToken))
 				throw new System.Configuration.ConfigurationErrorsException(
 					"Could not find one or either of the SmartyStreets auth keys.\n " + 
 					"Set them in the constructor, or an app.config or web.config.");
 		}
 
-		/// <summary>
+
+    #region depricated
+    /// <summary>
 		/// Attempts to resolve a street address to a verified one.
 		/// Makes requests to https://api.smartystreets.com/street-address.
 		/// See http://smartystreets.com/kb/liveaddress-api/rest-endpoint for
@@ -56,28 +56,12 @@ namespace Rentler.SmartyStreets
 		/// <returns>An enumerable list of possible addresses. Generally, one entry 
 		/// will be returned, but results can include up to five possibles. If none are found,
 		/// the array will be empty.</returns>
-		public async Task<IEnumerable<SmartyStreetsAddress>> GetStreetAddress(
+    [Obsolete("Use async method instead")]
+		public Task<IEnumerable<SmartyStreetsAddress>> GetStreetAddress(
 			string street = null, string city = null,
 			string state = null, string zipcode = null)
 		{
-			var args = SetAuth();
-			args["street"] = street;
-			args["city"] = city;
-			args["state"] = state;
-			args["zipcode"] = zipcode;
-			args["candidates"] = "5";
-
-			//var url = client.CreateAddress("street-address", args);
-			var url = client.CreateAddress("street-address", args);
-			var response = await client.Post(url);
-
-			//special cases
-			if (response.Length == 3)
-				return new SmartyStreetsAddress[0];
-
-			return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response)
-				??
-				new SmartyStreetsAddress[0];
+      return GetStreetAddressAsync(street, city, state, zipcode);
 		}
 
 		/// <summary>
@@ -93,40 +77,95 @@ namespace Rentler.SmartyStreets
 		/// <returns>An object with lists of matching Cities and States, along
 		/// with any relevant zip codes that match the area. If SmartyStreets
 		/// cannot find anything, an empty array will be returned.</returns>
-		public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookup(
+    [Obsolete("Use async method instead")]
+    public Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookup(
 			string city = null, string state = null,
 			string zip = null)
 		{
-			var args = SetAuth();
-			args["city"] = city;
-			args["state"] = state;
-			args["zip"] = zip;
-
-			var url = client.CreateAddress("zipcode", args);
-			var response = await client.Post(url);
-			var obj = JsonSerializer.DeserializeFromStream<SmartyStreetsCityStateZipLookup[]>(response)
-						??
-					  new SmartyStreetsCityStateZipLookup[] { };
-
-			return obj;
+      return GetLookupAsync(city, state, zip);
 		}
+    #endregion
 
-		/// <summary>
-		/// Handles assignment of the keys necessary to talk to SmartyStreets.
-		/// </summary>
-		/// <param name="dict">A dictionary with any arguments intended to be 
-		/// passed to SmartyStreets. If an existing dictionary is not supplied, 
-		/// it will instantiate and return a new one.</param>
-		/// <returns>A dictionary with the necessary keys to talk to SmartyStreeets.</returns>
-		Dictionary<string, string> SetAuth(Dictionary<string, string> dict = null)
-		{
-			if (dict == null)
-				dict = new Dictionary<string, string>();
+    /// <summary>
+    /// Attempts to resolve a street address to a verified one.
+    /// Makes requests to https://api.smartystreets.com/street-address.
+    /// See http://smartystreets.com/kb/liveaddress-api/rest-endpoint for
+    /// documentation on this endpoint.
+    /// </summary>
+    /// <param name="street">The street address, or a single-line (freeform) address.</param>
+    /// <param name="city">The city name.</param>
+    /// <param name="state">The state name.</param>
+    /// <param name="zipcode">The ZIP code.</param>
+    /// <returns>An enumerable list of possible addresses. Generally, one entry 
+    /// will be returned, but results can include up to five possibles. If none are found,
+    /// the array will be empty.</returns>
+    public async Task<IEnumerable<SmartyStreetsAddress>> GetStreetAddressAsync(string street = null, string city = null, string state = null, string zipcode = null)
+    {
+      var args = SetAuth();
+      args["street"] = street;
+      args["city"] = city;
+      args["state"] = state;
+      args["zipcode"] = zipcode;
+      args["candidates"] = "5";
 
-			dict["auth-id"] = authId;
-			dict["auth-token"] = authToken;
+      //var url = client.CreateAddress("street-address", args);
+      var url = _client.CreateAddress("street-address", args);
+      var response = await _client.PostAsync(url);
 
-			return dict;
-		}
-	}
+      //special cases
+      if (response.Length == 3)
+        return new SmartyStreetsAddress[0];
+
+      return JsonSerializer.DeserializeFromStream<SmartyStreetsAddress[]>(response)
+        ??
+        new SmartyStreetsAddress[0];
+    }
+
+    /// <summary>
+    /// Allows you to identify cities with ZIP codes, and vice-versa. 
+    /// It also provides approximate geo-coordinates (latitude/longitude). 
+    /// This endpoint does not support street addresses as input. See
+    /// http://smartystreets.com/kb/liveaddress-api/zipcode-api for documentation
+    /// on this endpoint.
+    /// </summary>
+    /// <param name="city">The city name.</param>
+    /// <param name="state">The state name.</param>
+    /// <param name="zip">The ZIP code.</param>
+    /// <returns>An object with lists of matching Cities and States, along
+    /// with any relevant zip codes that match the area. If SmartyStreets
+    /// cannot find anything, an empty array will be returned.</returns>
+    public async Task<IEnumerable<SmartyStreetsCityStateZipLookup>> GetLookupAsync(string city = null, string state = null, string zip = null)
+    {
+      var args = SetAuth();
+      args["city"] = city;
+      args["state"] = state;
+      args["zip"] = zip;
+
+      var url = _client.CreateAddress("zipcode", args);
+      var response = await _client.PostAsync(url);
+      var obj = JsonSerializer.DeserializeFromStream<SmartyStreetsCityStateZipLookup[]>(response)
+            ??
+            new SmartyStreetsCityStateZipLookup[] { };
+
+      return obj;
+    }
+
+    /// <summary>
+    /// Handles assignment of the keys necessary to talk to SmartyStreets.
+    /// </summary>
+    /// <param name="dict">A dictionary with any arguments intended to be 
+    /// passed to SmartyStreets. If an existing dictionary is not supplied, 
+    /// it will instantiate and return a new one.</param>
+    /// <returns>A dictionary with the necessary keys to talk to SmartyStreeets.</returns>
+    private Dictionary<string, string> SetAuth(Dictionary<string, string> dict = null)
+    {
+      if (dict == null)
+        dict = new Dictionary<string, string>();
+
+      dict["auth-id"] = _authId;
+      dict["auth-token"] = _authToken;
+
+      return dict;
+    }
+  }
 }

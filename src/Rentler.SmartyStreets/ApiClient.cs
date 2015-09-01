@@ -46,22 +46,41 @@ namespace Rentler.SmartyStreets
 			return url + parameters;
 		}
 
-		public async Task<Stream> Get(string url)
+    #region Depricated
+    [Obsolete("Use Async method instead")]
+		public Task<Stream> Get(string url)
 		{
-			var result = await client.GetAsync(url);
-			return await result.Content.ReadAsStreamAsync();
+      return GetAsync(url);
 		}
 
-		public async Task<Stream> Post(string url)
-		{
-			var result = await client.PostAsync(url, null);
-			return await result.Content.ReadAsStreamAsync();
-		}
+    [Obsolete("Use Async method instead")]
+    public Task<Stream> Post(string url)
+    {
+      return this.PostAsync(url);
+    }
+    [Obsolete("Use Async method instead")]
+    public Task<string> PostString(string url)
+    {
+      return PostStringAsync(url);
+    }
+    #endregion
 
-		public async Task<string> PostString(string url)
-		{
-			var result = await client.PostAsync(url, null);
-			return await result.Content.ReadAsStringAsync();
-		}
+    public async Task<Stream> GetAsync(string url)
+    {
+      var result = await client.GetAsync(url);
+      return await result.Content.ReadAsStreamAsync();
+    }
+    
+    public async Task<Stream> PostAsync(string url)
+    {
+      var result = await client.PostAsync(url, null);
+      return await result.Content.ReadAsStreamAsync();
+    }
+
+    public async Task<string> PostStringAsync(string url)
+    {
+      var result = await client.PostAsync(url, null);
+      return await result.Content.ReadAsStringAsync();
+    }
 	}
 }
