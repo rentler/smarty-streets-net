@@ -40,7 +40,7 @@ namespace Rentler.SmartyStreets
 
 			var keys = args.Keys.ToArray();
 			for (int i = 0; i < keys.Length; i++)
-				if (!string.IsNullOrWhiteSpace(keys[i]))
+				if (!string.IsNullOrWhiteSpace(args[keys[i]]))
 					parameters += keys[i] + "=" + Uri.EscapeUriString(args[keys[i]]) + "&";
 
 			parameters = parameters.Replace("#", "");
