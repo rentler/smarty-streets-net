@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
-	/// <summary>
-	/// A simple reusable Http client that handles
-	/// managing a System.Net.HttpClient for basic
-	/// GET/POST operations.
-	/// </summary>
-	public class ApiClient
+    /// <summary>
+    /// A simple reusable Http client that handles
+    /// managing a System.Net.HttpClient for basic
+    /// GET/POST operations.
+    /// </summary>
+    public class ApiClient
 	{
 		HttpClient client = new HttpClient();
 
