@@ -2,17 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rentler.SmartyStreets
 {
-	/// <summary>
-	/// Handles requests to SmartyStreets for street address
-	/// and city/state/zip lookups.
-	/// </summary>
-	public class SmartyStreetsClient : ISmartyStreetsClient
+    /// <summary>
+    /// Handles requests to SmartyStreets for street address
+    /// and city/state/zip lookups.
+    /// </summary>
+    public class SmartyStreetsClient : ISmartyStreetsClient
 	{
 		ApiClient _client;
 		string _authId;
@@ -31,17 +29,16 @@ namespace Rentler.SmartyStreets
 		/// </summary>
 		/// <param name="authId">Unique "auth-id" value provided by SmartyStreets.</param>
 		/// <param name="authToken">Unique "auth-token" value.</param>
-		public SmartyStreetsClient(string authId = null, string authToken = null)
+		public SmartyStreetsClient(string authId, string authToken)
 		{
 			_client = ApiClient.Instance;
-			_authId = authId ?? App.SmartyStreetsAuthId;
-			_authToken = authToken ?? App.SmartyStreetsAuthToken;
+			_authId = authId;
+			_authToken = authToken;
 			_serializer = new JsonSerializer();
 				
-			if (string.IsNullOrWhiteSpace(this._authId) || string.IsNullOrWhiteSpace(this._authToken))
-				throw new System.Configuration.ConfigurationErrorsException(
-					"Could not find one or either of the SmartyStreets auth keys.\n " +
-					"Set them in the constructor, or an app.config or web.config.");
+			if (string.IsNullOrWhiteSpace(_authId) || string.IsNullOrWhiteSpace(_authToken))
+				throw new Exception(
+					"Could not find one or either of the SmartyStreets auth keys.");
 		}
 
 
